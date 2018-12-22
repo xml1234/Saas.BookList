@@ -1,3 +1,3 @@
 "# Saas.BookList" 
    
-    »ùÓÚ.net core+Ç°¶ËangularµÃÏîÄ¿¿ª·¢¡£
+    åŸºäº.net core+å‰ç«¯angularå¾—é¡¹ç›®å¼€å‘ã€‚

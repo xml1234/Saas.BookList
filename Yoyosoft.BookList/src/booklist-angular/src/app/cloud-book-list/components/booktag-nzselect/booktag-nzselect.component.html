@@ -1,0 +1,10 @@
+<nz-spin [nzTip]="'正在读取数据中。。。'" [nzSpinning]="isLoading">
+
+  <nz-select #booktagselect nzMode="tags" style="width: 100%;" nzPlaceHolder="请输入书籍标签" [(ngModel)]="listOfSelectedvalue"
+    (ngModelChange)="modelChange()" (keydown.enter)="handleInputConfirm($event)">
+    <!-- (ngModelChange)="modelChange()" (keydown.enter)="" (nzOnSearch)="OnSearch($event)" -->
+    <nz-option *ngFor="let option of listOfTagOptions" [nzLabel]="option.tagName" [nzValue]="option.id">
+    </nz-option>
+  </nz-select>
+
+</nz-spin>

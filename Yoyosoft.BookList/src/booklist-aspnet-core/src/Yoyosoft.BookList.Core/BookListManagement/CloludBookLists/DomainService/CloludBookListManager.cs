@@ -82,9 +82,7 @@ namespace Yoyosoft.BookList.BookListManagement.CloludBookLists.DomainService
 
         public async Task DeleteByBookId(long? bookId)
         {
-
             await _bookListAndBookRepository.DeleteAsync(a => a.BookId == bookId.Value);
-
         }
 
         public async Task DeleteByBookId(List<long> bookIds)
@@ -102,13 +100,25 @@ namespace Yoyosoft.BookList.BookListManagement.CloludBookLists.DomainService
             await _bookListAndBookRepository.DeleteAsync(a => bookListIds.Contains(a.CloudBookListId));
         }
 
+        public async Task<List<BookListAndBook>> GetByBookListId(long? bookListId)
+        {
+            return await _bookListAndBookRepository.GetAll().AsNoTracking()
+                .Where(o => o.CloudBookListId == bookListId.Value).ToListAsync();
+        }
+
+        public async Task<List<BookListAndBook>> GetByBookId(long? bookId)
+        {
+            return await _bookListAndBookRepository.GetAll().AsNoTracking().Where(o => o.BookId == bookId.Value)
+                .ToListAsync();
+        }
+
         // TODO:编写领域业务代码
 
 
 
-		 
-		  
-		 
 
-	}
+
+
+
+    }
 }

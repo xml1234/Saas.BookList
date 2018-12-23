@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Abp;
 using Abp.Domain.Services;
 using Yoyosoft.BookList.BookListManagement.CloludBookLists;
+using Yoyosoft.BookList.BookListManagement.Relationships;
 
 
 namespace Yoyosoft.BookList.BookListManagement.CloludBookLists.DomainService
@@ -29,6 +30,11 @@ namespace Yoyosoft.BookList.BookListManagement.CloludBookLists.DomainService
         Task DeleteByBookListId(long? bookListId);
 
         Task DeleteByBookListId(List<long> bookListIds);
+
+
+        Task<List<BookListAndBook>> GetByBookListId(long? bookListId);
+
+        Task<List<BookListAndBook>> GetByBookId(long? bookId);
 
 
     }

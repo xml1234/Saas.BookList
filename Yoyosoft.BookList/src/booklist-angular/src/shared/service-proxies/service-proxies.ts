@@ -3766,6 +3766,7 @@ export interface ICloludBookListListDto {
 
 export class GetCloludBookListForEditOutput implements IGetCloludBookListForEditOutput {
     cloludBookList: CloludBookListEditDto | undefined;
+    books: BookSelectListDto[] | undefined;
 
     constructor(data?: IGetCloludBookListForEditOutput) {
         if (data) {
@@ -3779,6 +3780,11 @@ export class GetCloludBookListForEditOutput implements IGetCloludBookListForEdit
     init(data?: any) {
         if (data) {
             this.cloludBookList = data["cloludBookList"] ? CloludBookListEditDto.fromJS(data["cloludBookList"]) : <any>undefined;
+            if (data["books"] && data["books"].constructor === Array) {
+                this.books = [];
+                for (let item of data["books"])
+                    this.books.push(BookSelectListDto.fromJS(item));
+            }
         }
     }
 
@@ -3792,6 +3798,11 @@ export class GetCloludBookListForEditOutput implements IGetCloludBookListForEdit
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["cloludBookList"] = this.cloludBookList ? this.cloludBookList.toJSON() : <any>undefined;
+        if (this.books && this.books.constructor === Array) {
+            data["books"] = [];
+            for (let item of this.books)
+                data["books"].push(item.toJSON());
+        }
         return data; 
     }
 
@@ -3805,6 +3816,7 @@ export class GetCloludBookListForEditOutput implements IGetCloludBookListForEdit
 
 export interface IGetCloludBookListForEditOutput {
     cloludBookList: CloludBookListEditDto | undefined;
+    books: BookSelectListDto[] | undefined;
 }
 
 export class CloludBookListEditDto implements ICloludBookListEditDto {
@@ -3856,6 +3868,81 @@ export interface ICloludBookListEditDto {
     id: number | undefined;
     name: string | undefined;
     intro: string | undefined;
+}
+
+export class BookSelectListDto implements IBookSelectListDto {
+    isSelected: boolean | undefined;
+    name: string;
+    author: string;
+    intro: string;
+    priceUrl: string | undefined;
+    imgUrl: string | undefined;
+    creationTime: moment.Moment | undefined;
+    creatorUserId: number | undefined;
+    id: number | undefined;
+
+    constructor(data?: IBookSelectListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.isSelected = data["isSelected"];
+            this.name = data["name"];
+            this.author = data["author"];
+            this.intro = data["intro"];
+            this.priceUrl = data["priceUrl"];
+            this.imgUrl = data["imgUrl"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = data["creatorUserId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): BookSelectListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BookSelectListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["isSelected"] = this.isSelected;
+        data["name"] = this.name;
+        data["author"] = this.author;
+        data["intro"] = this.intro;
+        data["priceUrl"] = this.priceUrl;
+        data["imgUrl"] = this.imgUrl;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+
+    clone(): BookSelectListDto {
+        const json = this.toJSON();
+        let result = new BookSelectListDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IBookSelectListDto {
+    isSelected: boolean | undefined;
+    name: string;
+    author: string;
+    intro: string;
+    priceUrl: string | undefined;
+    imgUrl: string | undefined;
+    creationTime: moment.Moment | undefined;
+    creatorUserId: number | undefined;
+    id: number | undefined;
 }
 
 export class CreateOrUpdateCloludBookListInput implements ICreateOrUpdateCloludBookListInput {

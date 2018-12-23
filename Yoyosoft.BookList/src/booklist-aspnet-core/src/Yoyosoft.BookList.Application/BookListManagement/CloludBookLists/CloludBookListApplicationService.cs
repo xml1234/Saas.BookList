@@ -22,6 +22,7 @@ using Yoyosoft.BookList.BookListManagement.CloludBookLists;
 using Yoyosoft.BookList.BookListManagement.CloludBookLists.Dtos;
 using Yoyosoft.BookList.BookListManagement.CloludBookLists.DomainService;
 using Yoyosoft.BookList.BookListManagement.CloludBookLists.Authorization;
+using Yoyosoft.BookList.BookListManagement.Dtos;
 
 
 namespace Yoyosoft.BookList.BookListManagement.CloludBookLists
@@ -36,16 +37,18 @@ namespace Yoyosoft.BookList.BookListManagement.CloludBookLists
 
         private readonly ICloludBookListManager _entityManager;
 
+        private readonly IRepository<Book, long> _bookRepository;
+
         /// <summary>
         /// 构造函数 
         ///</summary>
         public CloludBookListAppService(
         IRepository<CloludBookList, long> entityRepository
-        ,ICloludBookListManager entityManager
-        )
+        ,ICloludBookListManager entityManager, IRepository<Book, long> bookRepository)
         {
             _entityRepository = entityRepository; 
              _entityManager=entityManager;
+            _bookRepository = bookRepository;
         }
 
 
@@ -87,36 +90,50 @@ namespace Yoyosoft.BookList.BookListManagement.CloludBookLists
 		    return entity.MapTo<CloludBookListListDto>();
 		}
 
-		/// <summary>
-		/// 获取编辑 CloludBookList
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		[AbpAuthorize(CloludBookListPermissions.Create,CloludBookListPermissions.Edit)]
-		public async Task<GetCloludBookListForEditOutput> GetForEdit(NullableIdDto<long> input)
-		{
-			var output = new GetCloludBookListForEditOutput();
-CloludBookListEditDto editDto;
+        /// <summary>
+        /// 获取编辑 CloludBookList
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [AbpAuthorize(CloludBookListPermissions.Create, CloludBookListPermissions.Edit)]
+        public async Task<GetCloludBookListForEditOutput> GetForEdit(NullableIdDto<long> input)
+        {
+            var output = new GetCloludBookListForEditOutput();
+            CloludBookListEditDto editDto;
 
-			if (input.Id.HasValue)
-			{
-				var entity = await _entityRepository.GetAsync(input.Id.Value);
+            var allBookListDtos = (await _bookRepository.GetAllListAsync()).MapTo<List<BookSelectListDto>>();
 
-				editDto = entity.MapTo<CloludBookListEditDto>();
+            if (input.Id.HasValue)
+            {
+                var entity = await _entityRepository.GetAsync(input.Id.Value);
 
-				//cloludBookListEditDto = ObjectMapper.Map<List<cloludBookListEditDto>>(entity);
-			}
-			else
-			{
-				editDto = new CloludBookListEditDto();
-			}
+                editDto = entity.MapTo<CloludBookListEditDto>();
 
-			output.CloludBookList = editDto;
-			return output;
-		}
+                //cloludBookListEditDto = ObjectMapper.Map<List<cloludBookListEditDto>>(entity);
+
+                var bookIds = (await _entityManager.GetByBookListId(entity.Id)).Select(a => a.BookId).ToList();
+
+                foreach (var book in allBookListDtos)
+                {
+                    if (bookIds.Exists(a => a == book.Id))
+                    {
+                        book.IsSelected = true;
+                    }
+                }
+
+            }
+            else
+            {
+                editDto = new CloludBookListEditDto();
+            }
+
+            output.CloludBookList = editDto;
+            output.Books = allBookListDtos;
+            return output;
+        }
 
 
-		/// <summary>
+        /// <summary>
 		/// 添加或者修改CloludBookList的公共方法
 		/// </summary>
 		/// <param name="input"></param>

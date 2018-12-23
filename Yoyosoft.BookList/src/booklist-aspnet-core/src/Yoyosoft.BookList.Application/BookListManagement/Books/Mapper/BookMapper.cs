@@ -19,6 +19,9 @@ namespace Yoyosoft.BookList.BookListManagement.Mapper
             configuration.CreateMap <BookEditDto,Book>();
             configuration.CreateMap <Book,BookEditDto>();
 
+            configuration.CreateMap<Book, BookSelectListDto>()
+                .ForMember(a => a.IsSelected, options => options.Ignore());
+
         }
 	}
 }

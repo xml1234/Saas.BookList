@@ -14,6 +14,7 @@ import { BookTagComponent } from './book-tags/book-tag.component';
 import { CreateOrEditBookTagComponent } from './book-tags/create-or-edit-book-tag/create-or-edit-book-tag.component';
 import { CloludBookListComponent } from './clolud-book-lists/clolud-book-list.component';
 import { CreateOrEditCloludBookListComponent } from './clolud-book-lists/create-or-edit-clolud-book-list/create-or-edit-clolud-book-list.component';
+import { BookNzselectComponent } from './components/book-nzselect/book-nzselect.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { CreateOrEditCloludBookListComponent } from './clolud-book-lists/create-
 
     CloudBookListRoutingModule
   ],
-  declarations: [BookComponent, ImgShowComponent, BooktagNzselectComponent, CreateOrEditBookComponent, BookTagComponent,
+  declarations: [BookComponent, BookNzselectComponent, ImgShowComponent, BooktagNzselectComponent, CreateOrEditBookComponent, BookTagComponent,
     CreateOrEditBookTagComponent, CloludBookListComponent,
     CreateOrEditCloludBookListComponent,],
   entryComponents: [BookComponent, ImgShowComponent, CreateOrEditBookComponent, BookTagComponent,

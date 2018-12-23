@@ -20,10 +20,41 @@ export class HomeComponent extends AppComponentBase implements OnInit {
   }
 
   members = [
+
+    {
+      id: 'members-5',
+      title: 'github源代码',
+      logo: 'https://avatars2.githubusercontent.com/u/44439760?s=400&u=a6b03940ba3d050e62deaa8dc5f68fe5fab38c6c&v=4',
+      link: 'https://github.com/xml1234/Saas.BookList',
+    },
+
+
+    {
+      id: 'members-5',
+      title: '关于DtoNet',
+      // logo: 'https://mvp.microsoft.com/Content/Images/mvp-banner.png',
+      logo: 'https://dotnet.microsoft.com/images/redesign/downloads-dot-net-core.svg?v=U_8I9gzFF2Cqi5zUNx-kHJuou_BWNurkhN_kSm3mCmo',
+      link: 'https://www.microsoft.com/zh-cn/',
+    },
+    {
+      id: 'members-4',
+      title: '博客园-博文地址',
+      logo: 'https://avatars2.githubusercontent.com/u/44439760?s=400&u=a6b03940ba3d050e62deaa8dc5f68fe5fab38c6c&v=4',
+      link: 'https://www.cnblogs.com/wer-ltm/',
+    },
+
+    {
+      id: 'members-5',
+      title: '博文地址:知乎专栏',
+      logo:
+        'https://avatars2.githubusercontent.com/u/44439760?s=400&u=a6b03940ba3d050e62deaa8dc5f68fe5fab38c6c&v=4',
+      link: 'https://zhuanlan.zhihu.com/52abp',
+    },
+
     {
       id: 'members-1',
-      title: '52ABP社区',
-      logo: 'https://avatars2.githubusercontent.com/u/33684174?s=200&v=4',
+      title: 'ABP社区',
+      logo: 'https://aspnetboilerplate.com//images/logos/abp-logo-long.png',
       link:
         // tslint:disable-next-line:max-line-length
         'https://www.52abp.com',
@@ -35,15 +66,15 @@ export class HomeComponent extends AppComponentBase implements OnInit {
       link:
         'http://study.163.com/provider/400000000309007/course.htm?share=2&shareId=400000000309007',
     },
-    {
-      id: 'members-1',
-      title: '微信公众号-角落的白板报',
-      logo:
-        'http://wx.qlogo.cn/mmhead/Q3auHgzwzM6PQV7JWIpJ2seavD5UuzCVWPyZs0SVqFkdYRyc3HQUkg/0',
-      link:
-        // tslint:disable-next-line:max-line-length
-        'https://mp.weixin.qq.com/profile?src=3&timestamp=1532171698&ver=1&signature=hRm1TI4zh80GpKxR5LYIc9SyUcyUPiM1EE8qlUdm4dbNzP06DOfA0HKfgajY2Dyj2xku0anPcrOwE8f7mjlwxg==',
-    },
+    // {
+    //   id: 'members-1',
+    //   title: '微信公众号-角落的白板报',
+    //   logo:
+    //     'http://wx.qlogo.cn/mmhead/Q3auHgzwzM6PQV7JWIpJ2seavD5UuzCVWPyZs0SVqFkdYRyc3HQUkg/0',
+    //   link:
+    //     // tslint:disable-next-line:max-line-length
+    //     'https://mp.weixin.qq.com/profile?src=3&timestamp=1532171698&ver=1&signature=hRm1TI4zh80GpKxR5LYIc9SyUcyUPiM1EE8qlUdm4dbNzP06DOfA0HKfgajY2Dyj2xku0anPcrOwE8f7mjlwxg==',
+    // },
     {
       id: 'members-3',
       title: '视频课程：腾讯课堂',
@@ -52,41 +83,16 @@ export class HomeComponent extends AppComponentBase implements OnInit {
       link: 'https://ke.qq.com/course/287301?tuin=2522cdf3',
     },
 
-    {
-      id: 'members-5',
-      title: 'github源代码',
-      logo: 'https://major.io/wp-content/uploads/2014/08/github.png',
-      link: 'https://github.com/52ABP/LTMCompanyNameFree.YoyoCmsTemplate',
-    },
-    {
-      id: 'members-5',
-      title: '微软MVP',
-      logo: 'https://mvp.microsoft.com/Content/Images/mvp-banner.png',
-      link: 'https://mvp.microsoft.com/zh-CN/PublicProfile/5002741',
-    },
-    {
-      id: 'members-4',
-      title: '博客园-博文地址',
-      logo: '',
-      link: 'https://www.cnblogs.com/wer-ltm/',
-    },
 
-    {
-      id: 'members-5',
-      title: '博文地址:知乎专栏',
-      logo:
-        'http://wx.qlogo.cn/mmhead/Q3auHgzwzM6PQV7JWIpJ2seavD5UuzCVWPyZs0SVqFkdYRyc3HQUkg/0',
-      link: 'https://zhuanlan.zhihu.com/52abp',
-    },
     // 、、https://github.com/52ABP/LTMCompanyNameFree.YoyoCmsTemplate
   ];
 
   notice: any[] = [
     {
-      logo: "http://wx.qlogo.cn/mmhead/Q3auHgzwzM6PQV7JWIpJ2seavD5UuzCVWPyZs0SVqFkdYRyc3HQUkg/0",
-      title: "博文地址:哈哈哈哈哈哈哈哈哈",
+      logo: "https://avatars2.githubusercontent.com/u/44439760?s=400&u=a6b03940ba3d050e62deaa8dc5f68fe5fab38c6c&v=4",
+      title: "博文地址:待完善",
       href: "https://zhuanlan.zhihu.com/52abp",
-      description: "喜喜喜喜喜喜",
+      description: "待完善",
     },
   ];
   loading = false;

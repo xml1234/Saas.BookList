@@ -111,5 +111,11 @@ export class CloludBookListComponent extends PagedListingComponentBase<CloludBoo
     // });
   }
 
+  //分享二维码功能
+  shareQrCode(id: string) {
+
+  }
+
+
 }
 

@@ -2,6 +2,7 @@
 <localizationDictionary culture="zh-Hans">
   <texts>
 
+    <text name="SelectAll"  value="全选"></text>
     <text name="TagName"  value="标签名称"></text>
     <text name="CloudBookList" value="云书单" />
     <text name="Books" value="书籍" />

@@ -3860,6 +3860,7 @@ export interface ICloludBookListEditDto {
 
 export class CreateOrUpdateCloludBookListInput implements ICreateOrUpdateCloludBookListInput {
     cloludBookList: CloludBookListEditDto;
+    bookIds: number[] | undefined;
 
     constructor(data?: ICreateOrUpdateCloludBookListInput) {
         if (data) {
@@ -3876,6 +3877,11 @@ export class CreateOrUpdateCloludBookListInput implements ICreateOrUpdateCloludB
     init(data?: any) {
         if (data) {
             this.cloludBookList = data["cloludBookList"] ? CloludBookListEditDto.fromJS(data["cloludBookList"]) : new CloludBookListEditDto();
+            if (data["bookIds"] && data["bookIds"].constructor === Array) {
+                this.bookIds = [];
+                for (let item of data["bookIds"])
+                    this.bookIds.push(item);
+            }
         }
     }
 
@@ -3889,6 +3895,11 @@ export class CreateOrUpdateCloludBookListInput implements ICreateOrUpdateCloludB
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["cloludBookList"] = this.cloludBookList ? this.cloludBookList.toJSON() : <any>undefined;
+        if (this.bookIds && this.bookIds.constructor === Array) {
+            data["bookIds"] = [];
+            for (let item of this.bookIds)
+                data["bookIds"].push(item);
+        }
         return data; 
     }
 
@@ -3902,6 +3913,7 @@ export class CreateOrUpdateCloludBookListInput implements ICreateOrUpdateCloludB
 
 export interface ICreateOrUpdateCloludBookListInput {
     cloludBookList: CloludBookListEditDto;
+    bookIds: number[] | undefined;
 }
 
 export class ChangeUiThemeInput implements IChangeUiThemeInput {

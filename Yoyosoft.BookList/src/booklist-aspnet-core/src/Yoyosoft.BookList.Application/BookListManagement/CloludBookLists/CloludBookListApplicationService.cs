@@ -127,11 +127,11 @@ CloludBookListEditDto editDto;
 
 			if (input.CloludBookList.Id.HasValue)
 			{
-				await Update(input.CloludBookList);
+			    await Update(input.CloludBookList, input.BookIds);
 			}
 			else
 			{
-				await Create(input.CloludBookList);
+			    await Create(input.CloludBookList, input.BookIds);
 			}
 		}
 
@@ -140,15 +140,23 @@ CloludBookListEditDto editDto;
 		/// 新增CloludBookList
 		/// </summary>
 		[AbpAuthorize(CloludBookListPermissions.Create)]
-		protected virtual async Task<CloludBookListEditDto> Create(CloludBookListEditDto input)
+		protected virtual async Task<CloludBookListEditDto> Create(CloludBookListEditDto input, List<long> bookIds)
 		{
 			//TODO:新增前的逻辑判断，是否允许新增
 
             // var entity = ObjectMapper.Map <CloludBookList>(input);
             var entity=input.MapTo<CloludBookList>();
-			
 
-			entity = await _entityRepository.InsertAsync(entity);
+
+		    var entityid = await _entityRepository.InsertAndGetIdAsync(entity);
+
+		    if (bookIds.Count > 0)
+		    {
+		        await _entityManager.CreateBookListAndBookRelationship(entityid, bookIds);
+		    }
+
+
+		    //entity = await _entityRepository.InsertAsync(entity);
 			return entity.MapTo<CloludBookListEditDto>();
 		}
 
@@ -156,7 +164,7 @@ CloludBookListEditDto editDto;
 		/// 编辑CloludBookList
 		/// </summary>
 		[AbpAuthorize(CloludBookListPermissions.Edit)]
-		protected virtual async Task Update(CloludBookListEditDto input)
+		protected virtual async Task Update(CloludBookListEditDto input, List<long> bookIds)
 		{
 			//TODO:更新前的逻辑判断，是否允许更新
 
@@ -165,7 +173,14 @@ CloludBookListEditDto editDto;
 
 			// ObjectMapper.Map(input, entity);
 		    await _entityRepository.UpdateAsync(entity);
-		}
+
+
+		    if (bookIds.Count > 0)
+		    {
+		        await _entityManager.CreateBookListAndBookRelationship(entity.Id, bookIds);
+		    }
+
+        }
 
 
 
@@ -178,6 +193,9 @@ CloludBookListEditDto editDto;
 		public async Task Delete(EntityDto<long> input)
 		{
 			//TODO:删除前的逻辑判断，是否允许删除
+
+		    await _entityManager.DeleteByBookListId(input.Id);
+
 			await _entityRepository.DeleteAsync(input.Id);
 		}
 
@@ -190,6 +208,9 @@ CloludBookListEditDto editDto;
 		public async Task BatchDelete(List<long> input)
 		{
 			// TODO:批量删除前的逻辑判断，是否允许删除
+
+		    await _entityManager.DeleteByBookListId(input);
+
 			await _entityRepository.DeleteAsync(s => input.Contains(s.Id));
 		}
 

@@ -1,6 +1,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp;
 using Abp.Domain.Services;
@@ -18,10 +19,17 @@ namespace Yoyosoft.BookList.BookListManagement.CloludBookLists.DomainService
         void InitCloludBookList();
 
 
+        Task CreateBookListAndBookRelationship(long bookListId, List<long> bookIds);
 
-		 
-      
-         
+
+        Task DeleteByBookId(long? bookId);
+
+        Task DeleteByBookId(List<long> bookIds);
+
+        Task DeleteByBookListId(long? bookListId);
+
+        Task DeleteByBookListId(List<long> bookListIds);
+
 
     }
 }

@@ -23,6 +23,7 @@ using Yoyosoft.BookList.BookListManagement.Dtos;
 using Yoyosoft.BookList.BookListManagement.DomainService;
 using Yoyosoft.BookList.BookListManagement.Authorization;
 using Yoyosoft.BookList.BookListManagement.BookTags.DomainService;
+using Yoyosoft.BookList.BookListManagement.CloludBookLists.DomainService;
 using Yoyosoft.BookList.BookListManagement.Relationships;
 
 
@@ -42,17 +43,20 @@ namespace Yoyosoft.BookList.BookListManagement
 
         private readonly IBookTagManager _bookTagManager;
 
+        private readonly ICloludBookListManager _cloludBookListManager;
+
         /// <summary>
         /// 构造函数 
         ///</summary>
         public BookAppService(
         IRepository<Book, long> entityRepository
-        ,IBookManager entityManager, IRepository<BookAndBookTag, long> bookAndBookTagRepository, IBookTagManager bookTagManager)
+        ,IBookManager entityManager, IRepository<BookAndBookTag, long> bookAndBookTagRepository, IBookTagManager bookTagManager, ICloludBookListManager cloludBookListManager)
         {
             _entityRepository = entityRepository; 
              _entityManager=entityManager;
             _bookAndBookTagRepository = bookAndBookTagRepository;
             _bookTagManager = bookTagManager;
+            _cloludBookListManager = cloludBookListManager;
         }
 
 
@@ -210,9 +214,10 @@ namespace Yoyosoft.BookList.BookListManagement
         [AbpAuthorize(BookPermissions.Delete)]
 		public async Task Delete(EntityDto<long> input)
 		{
-			//TODO:删除前的逻辑判断，是否允许删除
-			await _entityRepository.DeleteAsync(input.Id);
+            //TODO:删除前的逻辑判断，是否允许删除
 		    await _bookAndBookTagRepository.DeleteAsync(a => a.BookId == input.Id);
+		    await _cloludBookListManager.DeleteByBookId(input.Id);
+            await _entityRepository.DeleteAsync(input.Id);
 		}
 
 
@@ -223,9 +228,10 @@ namespace Yoyosoft.BookList.BookListManagement
 		[AbpAuthorize(BookPermissions.BatchDelete)]
 		public async Task BatchDelete(List<long> input)
 		{
-			// TODO:批量删除前的逻辑判断，是否允许删除
-			await _entityRepository.DeleteAsync(s => input.Contains(s.Id));
+            // TODO:批量删除前的逻辑判断，是否允许删除
 		    await _bookAndBookTagRepository.DeleteAsync(a => input.Contains(a.BookId));
+		    await _cloludBookListManager.DeleteByBookId(input);
+            await _entityRepository.DeleteAsync(s => input.Contains(s.Id));
 		}
 
 

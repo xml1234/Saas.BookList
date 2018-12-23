@@ -11,5 +11,8 @@ namespace Yoyosoft.BookList.BookListManagement.CloludBookLists.Dtos
         [Required]
         public CloludBookListEditDto CloludBookList { get; set; }
 
+        public List<long> BookIds { get; set; }
+
+
     }
 }

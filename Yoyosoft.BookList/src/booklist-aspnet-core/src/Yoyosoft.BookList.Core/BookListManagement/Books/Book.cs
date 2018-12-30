@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Yoyosoft.BookList.BookListManagement.Relationships;
 
 namespace Yoyosoft.BookList.BookListManagement
 {
-    public class Book:CreationAuditedEntity<long>
+    public class Book:CreationAuditedEntity<long>,IMustHaveTenant
     {
         public string Name { get; set; }
 
@@ -23,5 +24,6 @@ namespace Yoyosoft.BookList.BookListManagement
         public virtual ICollection<BookListAndBook> BookListAndBooks { get; set; }
 
 
+        public int TenantId { get; set; }
     }
 }

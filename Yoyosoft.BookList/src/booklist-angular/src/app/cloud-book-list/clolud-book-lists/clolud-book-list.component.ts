@@ -1,3 +1,4 @@
+import { ShareQrcodeComponent } from './../../../shared/components/share-qrcode/share-qrcode.component';
 
 import { Component, Injector, OnInit } from '@angular/core';
 import * as _ from 'lodash';
@@ -113,7 +114,9 @@ export class CloludBookListComponent extends PagedListingComponentBase<CloludBoo
 
   //分享二维码功能
   shareQrCode(id: string) {
-
+    const url = AppConsts.appBaseUrl + '/public/book-list-share;id=' + id;
+    this.modalHelper.open(ShareQrcodeComponent, { qrcodeUrl: url }, 'sm')
+      .subscribe(() => { });
   }
 
 

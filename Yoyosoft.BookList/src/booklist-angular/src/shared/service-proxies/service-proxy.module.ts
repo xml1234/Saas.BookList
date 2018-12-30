@@ -16,6 +16,7 @@ import * as ApiServiceProxies from '@shared/service-proxies/service-proxies';
     ApiServiceProxies.BookServiceProxy,
     ApiServiceProxies.BookTagServiceProxy,
     ApiServiceProxies.CloludBookListServiceProxy,
+    ApiServiceProxies.TenantRegistrationServiceProxy,
 
     { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true },
   ],

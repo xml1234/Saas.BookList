@@ -25,5 +25,8 @@ namespace Yoyosoft.BookList.MultiTenancy.Dto
         public string ConnectionString { get; set; }
 
         public bool IsActive {get; set;}
+
+
+        public string Password { get; set; }
     }
 }

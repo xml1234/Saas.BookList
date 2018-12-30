@@ -6,18 +6,22 @@ import { ValidationMessagesComponent } from '@shared/components/validation-messa
 import { AutoFocusDirective } from '@shared/components/validation-messages/auto-focus.directive';
 import { MinValueValidator } from '@shared/components/validation-messages/validation/min-value-validator.directive';
 import { PasswordComplexityValidator } from '@shared/components/validation-messages/validation/password-complexity-validator.directive';
-const COMPONENTS = [NoDataComponent, ValidationMessagesComponent];
+import { ShareQrcodeComponent } from './share-qrcode/share-qrcode.component';
+import { QRCodeModule } from 'angular2-qrcode';
+const COMPONENTS = [NoDataComponent, ValidationMessagesComponent, ShareQrcodeComponent];
 
 const ThirdDirectives = [
   AutoFocusDirective,
   EqualValidator,
   MinValueValidator,
   PasswordComplexityValidator,
+
 ];
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, QRCodeModule],
   declarations: [...COMPONENTS, ...ThirdDirectives],
+  entryComponents: [ShareQrcodeComponent],
   exports: [...COMPONENTS],
 })
 
